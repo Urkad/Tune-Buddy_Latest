@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
 import useUser from "./hooks/useUser";
+import NavigationBar from "./components/NavBar";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+          <NavigationBar logout={logout}/>
         <Routes>
           <Route path={"/home"} element={<HomePage></HomePage>}></Route>
           <Route path={"/"} element={<LoginPage login={login}/>}></Route>
