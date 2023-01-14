@@ -5,6 +5,7 @@ import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
 import useUser from "./hooks/useUser";
 import NavigationBar from "./components/NavBar";
+import ProfilePage from "./components/ProfilePage";
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <Routes>
           <Route path={"/home"} element={<HomePage></HomePage>}></Route>
           <Route path={"/"} element={<LoginPage login={login}/>}></Route>
-          {/*<Route path={"/profile"} element={<ProfilePage  user={profile}/>}></Route>*/}
+          <Route path={"/profile"} element={<ProfilePage />}></Route>
         </Routes>
       </BrowserRouter>
 
