@@ -11,9 +11,8 @@ export default function NavigationBar(props: NavigationBarProps) {
     return (
         <div className={"nav-bar"}>
             <NavLink to={"/"} >Startseite</NavLink>
-            <NavLink to={"/home"} >Home</NavLink>
+            <NavLink to={"/home"} >Friends</NavLink>
             <NavLink to={"/profile"} >Profile</NavLink>
-            <NavLink to={"/login"} >Login</NavLink>
             <Button onClick={props.logout}>Logout</Button>
         </div>
     )

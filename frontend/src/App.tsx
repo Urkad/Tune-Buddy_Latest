@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import HomePage from "./components/HomePage";
+import FriendPage from "./components/FriendPage";
 import LoginPage from "./components/LoginPage";
 import useUser from "./hooks/useUser";
 import NavigationBar from "./components/NavBar";
@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
           <NavigationBar logout={logout}/>
         <Routes>
-          <Route path={"/home"} element={<HomePage></HomePage>}></Route>
+          <Route path={"/home"} element={<FriendPage></FriendPage>}></Route>
           <Route path={"/"} element={<LoginPage login={login}/>}></Route>
           <Route path={"/profile"} element={<ProfilePage />}></Route>
         </Routes>
