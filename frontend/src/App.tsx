@@ -3,13 +3,12 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
-import ProfilePage from "./components/ProfilePage";
-import useProfile from "./hooks/useProfile";
+import useUser from "./hooks/useUser";
 
 
 function App() {
 
-    const {profile}=useProfile()
+    const {username, login, logout} = useUser();
 
 
   return (
@@ -17,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={"/home"} element={<HomePage></HomePage>}></Route>
-          <Route path={"/"} element={<LoginPage />}></Route>
+          <Route path={"/"} element={<LoginPage login={login}/>}></Route>
           {/*<Route path={"/profile"} element={<ProfilePage  user={profile}/>}></Route>*/}
         </Routes>
       </BrowserRouter>
