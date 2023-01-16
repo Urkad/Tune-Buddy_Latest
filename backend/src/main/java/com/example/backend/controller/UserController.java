@@ -3,6 +3,7 @@ package com.example.backend.controller;
 
 import com.example.backend.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import com.example.backend.service.UserService;
 
@@ -44,6 +45,7 @@ public class UserController {
         return userService.addUser(user);
     }
     @PostMapping("/login")
-    public void login(){
+    public Object login(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

@@ -1,7 +1,6 @@
 package com.example.backend.security;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -13,7 +12,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new Argon2PasswordEncoder();
     }
 
@@ -23,15 +22,9 @@ public class SecurityConfig {
                 .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
-                .httpBasic()
-                .authenticationEntryPoint((request, response, authException) ->
-                        response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase()))
-
-                .and()
+                .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/api/users/me").authenticated()
                 .antMatchers("/**").permitAll()
-                .and()
-                .build();
+                .and().build();
     }
 }
