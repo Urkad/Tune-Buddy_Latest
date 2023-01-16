@@ -1,10 +1,10 @@
-package service;
+package com.example.backend.service;
 
 
-import models.User;
+import com.example.backend.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repo.UserRepo;
+import com.example.backend.repo.UserRepo;
 
 import java.util.List;
 import java.util.Optional;
