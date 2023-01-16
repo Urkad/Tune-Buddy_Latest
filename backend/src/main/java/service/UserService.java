@@ -2,6 +2,7 @@ package service;
 
 
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repo.UserRepo;
 
@@ -12,9 +13,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepo userRepo;
+    private final IdService idService;
 
-    public UserService(UserRepo userRepo) {
+    @Autowired
+    public UserService(UserRepo userRepo, IdService idService) {
         this.userRepo = userRepo;
+        this.idService = idService;
     }
 
     public List<User> getAllUsers(){
@@ -23,5 +27,9 @@ public class UserService {
 
     public Optional<User> getUserById(String id){
         return userRepo.findById(id);
+    }
+
+    public User addUser(User user){
+        return userRepo.save(user);
     }
 }

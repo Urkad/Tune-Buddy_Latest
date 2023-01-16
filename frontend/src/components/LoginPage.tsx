@@ -1,9 +1,11 @@
 import {Button, TextField} from "@mui/material";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import Register from "./Register";
 
 type LoginPageProps = {
     login: (username: string, password: string) => Promise<string>
+    register: (user: string, email: string, password: string)=>void
 }
 
 
@@ -33,12 +35,18 @@ export default function LoginPage(props: LoginPageProps) {
 
     return (
         <div>
-            <h2>Login Page</h2>
-            <form onSubmit={onLoginSubmit}>
-                <TextField placeholder={"Username"} value={username} onChange={onUsernameChange}/>
-                <TextField type={"password"} placeholder={"Password"} value={password} onChange={onPasswordChange}/>
-                <Button type={"submit"}>Login</Button>
-            </form>
+            <div>
+                <Register register={props.register}></Register>
+            </div>
+            <div>
+                <h2>Login</h2>
+                <form onSubmit={onLoginSubmit}>
+                    <TextField placeholder={"Username"} value={username} onChange={onUsernameChange}/>
+                    <TextField type={"password"} placeholder={"Password"} value={password} onChange={onPasswordChange}/>
+                    <Button type={"submit"}>Login</Button>
+                </form>
+            </div>
+
         </div>
     )
 }

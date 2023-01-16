@@ -8,9 +8,10 @@ import NavigationBar from "./components/NavBar";
 import ProfilePage from "./components/ProfilePage";
 
 
+
 function App() {
 
-    const {username, login, logout} = useUser();
+    const {login, logout,register} = useUser();
 
 
   return (
@@ -19,8 +20,9 @@ function App() {
           <NavigationBar logout={logout}/>
         <Routes>
           <Route path={"/home"} element={<FriendPage></FriendPage>}></Route>
-          <Route path={"/"} element={<LoginPage login={login}/>}></Route>
+          <Route path={"/"} element={<LoginPage login={login} register={register}/>}></Route>
           <Route path={"/profile"} element={<ProfilePage />}></Route>
+          <Route path={"/event"} element={<ProfilePage />}></Route>
         </Routes>
       </BrowserRouter>
 
