@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import com.example.backend.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -47,5 +48,12 @@ public class UserController {
     @PostMapping("/login")
     public Object login(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    @PostMapping("logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
+        SecurityContextHolder.clearContext();
+        return "anonymousUser";
     }
 }
