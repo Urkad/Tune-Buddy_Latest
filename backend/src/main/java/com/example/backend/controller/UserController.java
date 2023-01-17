@@ -56,4 +56,11 @@ public class UserController {
         SecurityContextHolder.clearContext();
         return "anonymousUser";
     }
+
+    @PostMapping("/register")
+    public User saveUser(@RequestBody User user){
+        return userService.saveUser(user);
+    }
+
+
 }
