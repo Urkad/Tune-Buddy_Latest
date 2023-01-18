@@ -7,8 +7,6 @@ import com.example.backend.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.backend.repo.UserRepo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,18 +17,20 @@ public class UserService {
     private final UserRepo userRepo;
     private final IdService idService;
     private final UserService userService;
+    private final Argon2Service argon2Service;
 
     @Autowired
-    public UserService(UserRepo userRepo, IdService idService, UserService userService) {
+    public UserService(UserRepo userRepo, IdService idService, UserService userService, Argon2Service argon2Service) {
         this.userRepo = userRepo;
         this.idService = idService;
         this.userService = userService;
+        this.argon2Service = argon2Service;
     }
     public User saveUser( User user) {
         User UserToSave= new User(
-                user.id(),
+                idService.generateId(),
                 user.name(),
-                user.password(),
+                argon2Service.encode(user.password()),
                 user.email(),
                 new Car("id",
                         "picture",
@@ -44,7 +44,7 @@ public class UserService {
         return new User(
                 UserToSave.id(),
                 UserToSave.name(),
-                UserToSave.password(),
+                "***",
                 UserToSave.email(),
                 UserToSave.car()
         );
