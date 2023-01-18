@@ -35,9 +35,9 @@ export default function useUser(){
 
     }
 
-    function register(username: string, email: string, password: string){
+    function register(name: string, email: string, password: string){
         axios.post("/api/users/register", {
-            username: username,
+            name: name,
             email: email,
             password: password
         }).catch(e => console.error(e))

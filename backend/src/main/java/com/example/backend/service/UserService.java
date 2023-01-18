@@ -16,14 +16,12 @@ public class UserService {
 
     private final UserRepo userRepo;
     private final IdService idService;
-    private final UserService userService;
     private final Argon2Service argon2Service;
 
     @Autowired
-    public UserService(UserRepo userRepo, IdService idService, UserService userService, Argon2Service argon2Service) {
+    public UserService(UserRepo userRepo, IdService idService, Argon2Service argon2Service) {
         this.userRepo = userRepo;
         this.idService = idService;
-        this.userService = userService;
         this.argon2Service = argon2Service;
     }
     public User saveUser( User user) {
