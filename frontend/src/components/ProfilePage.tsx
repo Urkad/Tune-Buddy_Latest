@@ -1,6 +1,6 @@
 import React from "react";
 import car from "./images/car.jpeg"
-import {User} from "../models/User";
+import {User} from "./models/User";
 /*export type ProfileProps={
     user: User
 }*/

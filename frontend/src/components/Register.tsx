@@ -79,9 +79,6 @@ const Register = (props: RegisterProps) => {
                                    placeholder={"Password"}/>
                         }
                         <label>Password</label>
-                        <div>
-                            <p>The Password needs at least 8 Characters.</p>
-                        </div>
                     </div>
                     <div>
                         <button type={"submit"}>Register</button>

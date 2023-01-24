@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import FriendPage from "./components/FriendPage";
 import LoginPage from "./components/LoginPage";
-import useUser from "./hooks/useUser";
+import useUser from "./components/hooks/useUser";
 import NavigationBar from "./components/NavBar";
 import ProfilePage from "./components/ProfilePage";
 
