@@ -1,13 +1,17 @@
 package com.example.backend.controller;
 
 
+import com.example.backend.models.Car;
+import com.example.backend.models.MyUser;
 import com.example.backend.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import com.example.backend.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +30,7 @@ public class UserController {
         return "anonymousUser";
     }
 
-    @Autowired
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -41,13 +45,20 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping()
+    @PostMapping
     public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+        return userService.saveUser(user);
     }
     @PostMapping("/login")
-    public Object login(){
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    public Object login() {
+        return userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    @PutMapping("/{id}")
+    public User addCar(@PathVariable String id, @RequestBody User user) {
+        User userData = userService.getUserById(id).orElseThrow(() -> new UsernameNotFoundException(id + " user not found!"));
+        userData.setCar(user.getCar());
+        return userService.updateUser(userData);
     }
 
     @PostMapping("logout")
@@ -57,10 +68,7 @@ public class UserController {
         return "anonymousUser";
     }
 
-    @PostMapping("/register")
-    public User saveUser(@RequestBody User user){
-        return userService.saveUser(user);
-    }
+
 
 
 }

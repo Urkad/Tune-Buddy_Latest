@@ -24,12 +24,11 @@ public class UserService {
         this.idService = idService;
         this.argon2Service = argon2Service;
     }
-    public User saveUser( User user) {
+    public User saveUser(User user) {
         User UserToSave= new User(
-                idService.generateId(),
-                user.name(),
-                argon2Service.encode(user.password()),
-                user.email(),
+                user.getName(),
+                argon2Service.encode(user.getPassword()),
+                user.getEmail(),
                 new Car("id",
                         "picture",
                         "description",
@@ -40,15 +39,16 @@ public class UserService {
         userRepo.save(UserToSave);
 
         return new User(
-                UserToSave.id(),
-                UserToSave.name(),
+                UserToSave.getName(),
                 "***",
-                UserToSave.email(),
-                UserToSave.car()
+                UserToSave.getEmail(),
+                UserToSave.getCar()
         );
     }
 
-
+    public Optional<User> getUserByName(String name){
+        return userRepo.findByName(name);
+    }
 
     public List<User> getAllUsers(){
         return userRepo.findAll();
@@ -58,7 +58,8 @@ public class UserService {
         return userRepo.findById(id);
     }
 
-    public User addUser(User user){
+    public User updateUser(User user){
         return userRepo.save(user);
     }
+
 }
