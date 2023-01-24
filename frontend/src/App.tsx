@@ -6,12 +6,15 @@ import LoginPage from "./components/LoginPage";
 import useUser from "./components/hooks/useUser";
 import NavigationBar from "./components/NavBar";
 import ProfilePage from "./components/ProfilePage";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import EventApp from "./components/EventApp";
+import EventDetails from "./components/Event/EventDetails";
 
 
 
 function App() {
 
-    const {login, logout,register} = useUser();
+    const {username,login, logout,register} = useUser();
 
 
   return (
@@ -19,10 +22,16 @@ function App() {
       <BrowserRouter>
           <NavigationBar logout={logout}/>
         <Routes>
-          <Route path={"/home"} element={<FriendPage></FriendPage>}></Route>
-          <Route path={"/"} element={<LoginPage login={login} register={register}/>}></Route>
+            <Route path={"/login"} element={<LoginPage login={login} register={register}/>}></Route>
+            <Route path={"/"} element={<LoginPage login={login} register={register}/>}></Route>
+
+            <Route element={
+                <ProtectedRoutes username={username}/>}>
+                <Route path={"/home"} element={<FriendPage></FriendPage>}></Route>
           <Route path={"/profile"} element={<ProfilePage />}></Route>
-          <Route path={"/event"} element={<ProfilePage />}></Route>
+          <Route path={"/event"} element={<EventApp />}></Route>
+          <Route path={"/event/:id"} element={<EventDetails/>}></Route>
+            </Route>
         </Routes>
       </BrowserRouter>
 
