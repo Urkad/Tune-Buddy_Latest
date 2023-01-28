@@ -1,17 +1,12 @@
 package com.example.backend.controller;
 
-
-import com.example.backend.models.Car;
-import com.example.backend.models.MyUser;
 import com.example.backend.models.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import com.example.backend.service.UserService;
 
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -67,8 +62,4 @@ public class UserController {
         SecurityContextHolder.clearContext();
         return "anonymousUser";
     }
-
-
-
-
 }

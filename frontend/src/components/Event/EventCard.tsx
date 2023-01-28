@@ -16,7 +16,7 @@ export default function EventCard (props:EventCardProps){
     }
 
     function onDetailClick(){
-        navigate("/events/"+ props.event.id)
+        navigate("/event/"+ props.event.id)
     }
 
     return(

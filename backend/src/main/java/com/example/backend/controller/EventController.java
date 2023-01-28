@@ -31,4 +31,9 @@ public class EventController {
     public Event addEvent(@RequestBody Event event){
         return eventService.saveEvent(event);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable String id){
+        eventService.deleteById(id);
+    }
 }

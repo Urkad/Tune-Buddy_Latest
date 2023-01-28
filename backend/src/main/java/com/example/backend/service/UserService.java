@@ -1,6 +1,5 @@
 package com.example.backend.service;
 
-
 import com.example.backend.models.Car;
 import com.example.backend.models.TuningPart;
 import com.example.backend.models.User;
@@ -26,19 +25,21 @@ public class UserService {
     }
     public User saveUser(User user) {
         User UserToSave= new User(
+                idService.generateId(),
                 user.getName(),
                 argon2Service.encode(user.getPassword()),
                 user.getEmail(),
-                new Car("id",
+                new Car(idService.generateId(),
                         "picture",
                         "description",
-                        List.of(new TuningPart("id","name","url"))
+                        List.of(new TuningPart(idService.generateId(),"name","url"))
                         )
         );
 
         userRepo.save(UserToSave);
 
         return new User(
+                idService.generateId(),
                 UserToSave.getName(),
                 "***",
                 UserToSave.getEmail(),
@@ -61,5 +62,4 @@ public class UserService {
     public User updateUser(User user){
         return userRepo.save(user);
     }
-
 }

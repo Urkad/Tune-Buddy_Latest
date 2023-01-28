@@ -18,15 +18,16 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-          <NavigationBar logout={logout}/>
+          <NavigationBar logout={logout} user={user}/>
         <Routes>
-            <Route path={"/login"} element={<LoginPage login={login} register={register}/>}></Route>
-            <Route path={"/"} element={<LoginPage login={login} register={register}/>}></Route>
+            <Route path={"/login"} element={<LoginPage login={login} register={register} setUser={setUpdatedUser}/>}></Route>
+            <Route path={"/"} element={<LoginPage login={login} register={register} setUser={setUpdatedUser}/>}></Route>
 
             <Route element={
                 <ProtectedRoutes user={user}/>}>
-                <Route path={"/home"} element={<FriendPage></FriendPage>}></Route>
-          <Route path={"/profile"} element={<ProfilePage user={user} setUser={setUpdatedUser}/>}></Route>
+                <Route path={"/home"} element={<FriendPage user={user} ></FriendPage>}></Route>
+          <Route path={"/profile"} element={<ProfilePage user={user} setUser={setUpdatedUser} canEdit={true}/>}></Route>
+          <Route path={"/profile/:id"} element={<ProfilePage user={user} setUser={setUpdatedUser} canEdit={false}/>}></Route>
           <Route path={"/event"} element={<EventApp />}></Route>
           <Route path={"/event/:id"} element={<EventDetails/>}></Route>
             </Route>

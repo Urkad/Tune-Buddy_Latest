@@ -3,10 +3,9 @@ import axios from "axios";
 import {User} from "../models/User";
 import {Car} from "../models/Car";
 import {TuningPart} from "../models/TuningPart";
+import {useNavigate} from "react-router-dom";
 
 export default function useUser(){
-
-
 
     const emptyTuningPart:Array<TuningPart>=[{
         "id": "",
@@ -56,7 +55,6 @@ export default function useUser(){
                 setUser(data)
                 return data
             })
-
     }
 
     function register(name: string, email: string, password: string){

@@ -8,9 +8,11 @@ import {TuningPart} from "./models/TuningPart";
 import { v4 as uuid } from 'uuid';
 import AddParts from "./Parts/AddParts";
 import axios from "axios";
+import { useParams} from "react-router-dom";
 export type ProfileProps={
     user: User
     setUser:(user:User)=> void
+    canEdit: boolean
 }
 
 export default function ProfilePage(props:ProfileProps){
@@ -19,19 +21,26 @@ export default function ProfilePage(props:ProfileProps){
     const [desc, setDesc] = useState<string>(props.user.car.description)
     const [tuningParts, setTuningParts] =  useState<Array<TuningPart>>(props.user.car.tuningParts)
     const {updateImages}= useProfile()
+    const [profileUser, setProfileUser] = useState<User>(props.user)
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            axios.get("/api/users/" + id)
+                .then(response => {
+                    setProfileUser(response.data)
+                    setTuningParts(response.data.car.tuningParts)
+                })
+                .catch(console.error)
+        } else {
+            setProfileUser(props.user)
+            setTuningParts(props.user.car.tuningParts)
+        }
+    }, [id])
 
     function onDescChange(event:ChangeEvent<HTMLInputElement>){
         setDesc(event.target.value)
-
     }
-
-    useEffect(() => {
-        axios.get("/api/users/"+ props.user.id)
-            .then(response => {
-                props.setUser(response.data)
-            })
-            .catch(console.error)
-    }, [])
 
     function onEditClick(){
         setEdit(!edit)
@@ -58,14 +67,17 @@ export default function ProfilePage(props:ProfileProps){
 
     return(
         <div>
-            <p>Profile page</p>
-            <img src={props.user.car.img}/>
-            <Button size={"small"} variant={"contained"} onClick={onEditClick}>{edit ? "Save" : "Edit"}</Button>
+            <h2>{profileUser.name}</h2>
+            <img src={profileUser.car.img} width={250} height={250}/>
+            <br/>
+            {props.canEdit ? <Button size={"small"} variant={"contained"} onClick={onEditClick}>{edit ? "Save" : "Edit"}</Button> : null }
             { edit ?  <SingleImageUploadComponent setCarImg={setCarImage}/> : null }
-            <h2>{props.user.name}</h2>
+            <br/>
+            <p>Car Description:</p>
             <input type="text" disabled={!edit} value={desc} onChange={onDescChange}/>
+            <p>Parts:</p>
             { edit ? <AddParts addEvent={onPartsAdd}/> : null}
-            <div>{tuningParts.map(part=><Parts part={part} editable={edit} removeEvent={onPartsRemove}/>)}</div>
+            <div>{tuningParts.map((part, index)=><Parts key={index} part={part} editable={edit} removeEvent={onPartsRemove}/>)}</div>
         </div>
-        )
+    )
 }

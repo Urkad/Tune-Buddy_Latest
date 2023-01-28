@@ -14,7 +14,8 @@ public class User {
         private String email;
         private Car car;
 
-        public User(String name, String password, String email, Car car) {
+        public User(String id, String name, String password, String email, Car car) {
+                this.id = id;
                 this.name = name;
                 this.password = password;
                 this.email = email;
